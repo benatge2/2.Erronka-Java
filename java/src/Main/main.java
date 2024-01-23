@@ -3,7 +3,7 @@ package Main;
 import java.util.Scanner;
 import Interfaz.APP;
 import factura.generador;
-import factura.user_search;
+import usuarios.user_search;
 
 public class main {
 

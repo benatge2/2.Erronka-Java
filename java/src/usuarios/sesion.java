@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import static javax.swing.JOptionPane.*;
 
 public class sesion {
+	private static String query = null;
+
 	public static int check_pass(String NAN, String pass) {
 
 		DB.DBconnect obJConnection = new DB.DBconnect();
@@ -14,7 +16,7 @@ public class sesion {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			String query = "SELECT Izena FROM langileak WHERE Contraseña = '" + pass + "' AND NAN = '" + NAN + "'";
+			query = "SELECT Izena FROM langileak WHERE Contraseña = '" + pass + "' AND NAN = '" + NAN + "'";
 			ps = connection.prepareStatement(query);
 			rs = ps.executeQuery();
 			while (rs.next()) {

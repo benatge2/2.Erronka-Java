@@ -64,15 +64,15 @@ public class funtzioak extends JFrame {
 				Statement stmt;
 				try {
 					stmt = connection.createStatement();
-					ResultSet rs = stmt.executeQuery("select * from konponenteak");
-					ResultSetMetaData rsMetaData = rs.getMetaData();
+					ResultSet SQLResult = stmt.executeQuery("select * from konponenteak");
+					ResultSetMetaData rsMetaData = SQLResult.getMetaData();
 					String nombre = rsMetaData.getColumnName(columna + 1);
 
 					String ID = String.valueOf(table.getValueAt(fila, 0));
 					stmt = connection.createStatement();
-					rs = stmt.executeQuery("select id from konponenteak WHERE id = " + ID);
-					rs.next();
-					int id = rs.getInt("id");
+					SQLResult = stmt.executeQuery("select id from konponenteak WHERE id = " + ID);
+					SQLResult.next();
+					int id = SQLResult.getInt("id");
 
 					myActionListener = new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -90,7 +90,7 @@ public class funtzioak extends JFrame {
 					connection.close();
 					obJConnection.close();
 					stmt.close();
-					rs.close();
+					SQLResult.close();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

@@ -65,13 +65,13 @@ public class Pedidos extends JFrame {
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		tabla.tabla.actualizartabla("pedidos", table);
+		tablas.tabla.actualizartabla("pedidos", table);
 
 		JButton Update = new JButton("Actualizar");
 		Update.setBounds(10, 23, 106, 23);
 		Update.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tabla.tabla.actualizartabla("pedidos", table);
+				tablas.tabla.actualizartabla("pedidos", table);
 			}
 		});
 		Update.setFont(new Font("Times New Roman", Font.BOLD, 15));
@@ -114,7 +114,7 @@ public class Pedidos extends JFrame {
 		btnVer_tabla = new JButton("Ver pedidos");
 		btnVer_tabla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tabla.tabla.actualizartabla("pedidos", table,"idusuario",txtNIF.getText());
+				tablas.tabla.actualizartabla("pedidos", table,"idusuario",txtNIF.getText());
 			}
 		});
 		btnVer_tabla.setFont(new Font("Times New Roman", Font.BOLD, 20));
@@ -158,8 +158,8 @@ public class Pedidos extends JFrame {
 		btnEntregado = new JButton("Entregado");
 		btnEntregado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tabla.modify.update("pedidos", "estado", "npedido", Integer.valueOf(txtPedido.getText()), "Entregado");
-				tabla.tabla.actualizartabla("pedidos", table);
+				tablas.modify.update("pedidos", "estado", "npedido", Integer.valueOf(txtPedido.getText()), "Entregado");
+				tablas.tabla.actualizartabla("pedidos", table);
 			}
 		});
 		btnEntregado.setFont(new Font("Times New Roman", Font.BOLD, 20));
@@ -169,8 +169,8 @@ public class Pedidos extends JFrame {
 		btnEnviado = new JButton("Envidado");
 		btnEnviado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tabla.modify.update("pedidos", "estado", "npedido", Integer.valueOf(txtPedido.getText()), "Envidado");
-				tabla.tabla.actualizartabla("pedidos", table);
+				tablas.modify.update("pedidos", "estado", "npedido", Integer.valueOf(txtPedido.getText()), "Envidado");
+				tablas.tabla.actualizartabla("pedidos", table);
 			}
 		});
 		btnEnviado.setFont(new Font("Times New Roman", Font.BOLD, 20));
@@ -180,8 +180,8 @@ public class Pedidos extends JFrame {
 		btnPreparado = new JButton("Preparado");
 		btnPreparado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tabla.modify.update("pedidos", "estado", "npedido", Integer.valueOf(txtPedido.getText()), "Preparado");
-				tabla.tabla.actualizartabla("pedidos", table);
+				tablas.modify.update("pedidos", "estado", "npedido", Integer.valueOf(txtPedido.getText()), "Preparado");
+				tablas.tabla.actualizartabla("pedidos", table);
 			}
 		});
 		btnPreparado.setFont(new Font("Times New Roman", Font.BOLD, 20));

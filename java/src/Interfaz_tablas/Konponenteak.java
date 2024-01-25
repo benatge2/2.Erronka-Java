@@ -22,6 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public class Konponenteak extends JFrame {
 
@@ -30,6 +31,8 @@ public class Konponenteak extends JFrame {
 	private JTextField TFInsert;
 	private JTextField txtID;
 	private static String dato=null;
+	private JTextField txtColumna;
+	private JTextField txtValor;
 
 	/**
 	 * Launch the application.
@@ -66,13 +69,13 @@ public class Konponenteak extends JFrame {
 		DefaultTableModel modelo = new DefaultTableModel();
 		JTable table = new JTable(modelo);
 		scrollPane.setViewportView(table);
-		tabla.tabla.actualizarcomponente(table);
+		tablas.tabla.actualizarcomponente(table);
 		//tabla.tabla.actualizartabla("konponenteak", table);
 
 		JButton Update = new JButton("Actualizar");
 		Update.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tabla.tabla.actualizarcomponente(table);
+				tablas.tabla.actualizarcomponente(table);
 				//tabla.tabla.actualizartabla("konponenteak", table);
 			}
 		});
@@ -118,13 +121,54 @@ public class Konponenteak extends JFrame {
 		JButton btnEzabatu = new JButton("EZABATU");
 		btnEzabatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tabla.modify.delete("konponenteak", "idproducto", dato);
-				tabla.modify.delete("karakteristika", "idproducto", dato);
+				tablas.modify.delete("konponenteak", "idprodukto", dato);
+				tablas.modify.delete("karakteristika", "idprodukto", dato);
+				tablas.tabla.actualizarcomponente(table);
 			}
 		});
 		btnEzabatu.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		btnEzabatu.setBounds(1126, 133, 128, 35);
 		contentPane.add(btnEzabatu);
+
+		JButton btnKarakteristika = new JButton("CARACTERISTICAS");
+		btnKarakteristika.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				karakteristikak nF = new karakteristikak(admin,Integer.valueOf(dato));
+				nF.setVisible(true);
+			}
+		});
+		btnKarakteristika.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		btnKarakteristika.setBounds(951, 179, 180, 35);
+		contentPane.add(btnKarakteristika);
+
+		txtColumna = new JTextField();
+		txtColumna.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		txtColumna.setColumns(10);
+		txtColumna.setBounds(855, 291, 150, 35);
+		contentPane.add(txtColumna);
+
+		txtValor = new JTextField();
+		txtValor.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		txtValor.setColumns(10);
+		txtValor.setBounds(1064, 291, 150, 35);
+		contentPane.add(txtValor);
+
+		JLabel lblNewLabel_1 = new JLabel("Zutabea:");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		lblNewLabel_1.setBounds(863, 259, 128, 30);
+		contentPane.add(lblNewLabel_1);
+
+		JLabel lblNewLabel_1_1 = new JLabel("Balorea:");
+		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		lblNewLabel_1_1.setBounds(1072, 259, 128, 30);
+		contentPane.add(lblNewLabel_1_1);
+
+		JButton btnBilatu = new JButton("BILATU");
+		btnBilatu.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		btnBilatu.setBounds(941, 337, 180, 35);
+		contentPane.add(btnBilatu);
 
 		if (admin) {
 
@@ -142,7 +186,7 @@ public class Konponenteak extends JFrame {
 			JButton btnGet = new JButton("GET DATA");
 			btnGet.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					Interfaz_tablas.funtzioak.load_data(TFInsert, table, btnUpdate);
+					Interfaz_tablas.funtzioak.load_data(TFInsert, table, btnUpdate,"konponenteak","idprodukto",0);
 					int fila = table.getSelectedRow();
 					dato = String.valueOf(table.getValueAt(fila, 0));
 					System.out.println(dato);

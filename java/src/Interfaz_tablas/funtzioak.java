@@ -50,7 +50,7 @@ public class funtzioak extends JFrame {
 		setContentPane(contentPane);
 	}
 
-	public static void load_data(JTextField TFInsert, JTable table, JButton btnUpdate) {
+	public static void load_data(JTextField TFInsert, JTable table, JButton btnUpdate, String tabla,String columnaid,int pos) {
 		// detectar casilla clicada
 		int fila = table.getSelectedRow(); // primero, obtengo la fila seleccionada
 		int columna = table.getSelectedColumn();
@@ -65,21 +65,21 @@ public class funtzioak extends JFrame {
 				Statement stmt;
 				try {
 					stmt = connection.createStatement();
-					ResultSet SQLResult = stmt.executeQuery("select * from konponenteak");
+					ResultSet SQLResult = stmt.executeQuery("select * from " + tabla);
 					ResultSetMetaData rsMetaData = SQLResult.getMetaData();
 					String nombre = rsMetaData.getColumnName(columna + 1);
 
-					String ID = String.valueOf(table.getValueAt(fila, 0));
+					String ID = String.valueOf(table.getValueAt(fila, pos));
 					stmt = connection.createStatement();
-					SQLResult = stmt.executeQuery("select id from konponenteak WHERE id = " + ID);
+					SQLResult = stmt.executeQuery("select "+columnaid+" from "+tabla+" WHERE "+columnaid+" = " + ID);
 					SQLResult.next();
-					int id = SQLResult.getInt("id");
+					int id = SQLResult.getInt(columnaid);
 
 					myActionListener = new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							tabla.modify.update("konponenteak", nombre, "id", id, TFInsert.getText());
+							tablas.modify.update(tabla, nombre, columnaid, id, TFInsert.getText());
 							// String tabla, String columna , String columnaid, int id, String valor
-							tabla.tabla.actualizarcomponente(table);
+							tablas.tabla.actualizarcomponente(table);
 							//tabla.tabla.actualizartabla("konponenteak", table);
 							// Después de que se ha ejecutado el código, puedes eliminar el ActionListener
 							btnUpdate.removeActionListener(myActionListener);

@@ -158,7 +158,7 @@ public class Agregar extends JFrame {
 				producto produktu = new producto(txtMota.getText(), txtModelo.getText(), txtDesc.getText(), Integer.valueOf(txtCant.getText()), Double.valueOf(txtPrezioa.getText()), txtMarka.getText());
 				if(produktu.buscar()) {
 					System.out.println("Produktua ondo gehitu da.");
-					tabla.tabla.actualizarcomponente(table);
+					tablas.tabla.actualizarcomponente(table);
 				}else {
 					System.out.println("Produktua ez da gehitu.");
 				}

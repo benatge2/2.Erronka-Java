@@ -55,12 +55,12 @@ public class pedidos_clientes extends JFrame {
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		tabla.tabla.actualizartabla("pedidos_producto", table,"npedido",String.valueOf(npedido));
+		tablas.tabla.actualizartabla("pedidos_producto", table,"npedido",String.valueOf(npedido));
 
 		Update = new JButton("Actualizar");
 		Update.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tabla.tabla.actualizartabla("pedidos_producto", table,"npedido",String.valueOf(npedido));
+				tablas.tabla.actualizartabla("pedidos_producto", table,"npedido",String.valueOf(npedido));
 			}
 		});
 		Update.setFont(new Font("Times New Roman", Font.BOLD, 15));

@@ -56,7 +56,8 @@ public class funtzioak extends JFrame {
 		int columna = table.getSelectedColumn();
 		if (fila > 0 && columna > 0) {// luego, obtengo la columna seleccionada
 			String dato = String.valueOf(table.getValueAt(fila, columna)); // por ultimo, obtengo el valor
-																			// de la celda
+				//System.out.println(fila+columna+dato);															// de la celda
+
 			if (String.valueOf(dato) != null) {
 				TFInsert.setText(String.valueOf(dato));
 				DB.DBconnect obJConnection = new DB.DBconnect();

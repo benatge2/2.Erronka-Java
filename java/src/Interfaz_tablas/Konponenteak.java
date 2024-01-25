@@ -21,12 +21,15 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 public class Konponenteak extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField TFInsert;
+	private JTextField txtID;
+	private static String dato=null;
 
 	/**
 	 * Launch the application.
@@ -101,6 +104,28 @@ public class Konponenteak extends JFrame {
 		btnExit.setBounds(1083, 627, 156, 43);
 		contentPane.add(btnExit);
 
+		txtID = new JTextField();
+		txtID.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		txtID.setBounds(970, 133, 150, 35);
+		contentPane.add(txtID);
+		txtID.setColumns(10);
+
+		JLabel lblNewLabel = new JLabel("ID:");
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		lblNewLabel.setBounds(941, 133, 28, 35);
+		contentPane.add(lblNewLabel);
+
+		JButton btnEzabatu = new JButton("EZABATU");
+		btnEzabatu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tabla.modify.delete("konponenteak", "idproducto", dato);
+				tabla.modify.delete("karakteristika", "idproducto", dato);
+			}
+		});
+		btnEzabatu.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		btnEzabatu.setBounds(1126, 133, 128, 35);
+		contentPane.add(btnEzabatu);
+
 		if (admin) {
 
 			TFInsert = new JTextField();
@@ -111,13 +136,17 @@ public class Konponenteak extends JFrame {
 
 			JButton btnUpdate = new JButton("UPDATE");
 			btnUpdate.setFont(new Font("Times New Roman", Font.BOLD, 15));
-			btnUpdate.setBounds(1141, 67, 120, 36);
+			btnUpdate.setBounds(1126, 67, 128, 35);
 			contentPane.add(btnUpdate);
 
 			JButton btnGet = new JButton("GET DATA");
 			btnGet.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Interfaz_tablas.funtzioak.load_data(TFInsert, table, btnUpdate);
+					int fila = table.getSelectedRow();
+					dato = String.valueOf(table.getValueAt(fila, 0));
+					System.out.println(dato);
+					txtID.setText(String.valueOf(dato));
 				}
 			});
 

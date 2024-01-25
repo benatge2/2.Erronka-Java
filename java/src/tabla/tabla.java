@@ -34,7 +34,7 @@ public class tabla {
 			TableRowSorter<TableModel> order = new TableRowSorter<TableModel>(model);
 			table.setRowSorter(order);
 			st = connection.createStatement();
-			rs = st.executeQuery ("select p.id, p.konponenteMota, p.img, p.modelo, p.descripzioa, p.kantitatea, p.prezioa, p.marka, COALESCE(GROUP_CONCAT(c.karakteristika1), 'Sin características') AS caracteristicas from konponenteak p LEFT JOIN karakteristika c ON p.id = c.idprodukto GROUP BY p.id;");
+			rs = st.executeQuery ("select p.idprodukto, p.konponenteMota, p.img, p.modelo, p.descripzioa, p.kantitatea, p.prezioa, p.marka, COALESCE(GROUP_CONCAT(c.karakteristika1), 'Sin características') AS caracteristicas from konponenteak p LEFT JOIN karakteristika c ON p.idprodukto = c.idprodukto GROUP BY p.idprodukto;");
 			ResultSetMetaData metaData = rs.getMetaData();
 			table.setModel(model);
 			int columnCount = metaData.getColumnCount();

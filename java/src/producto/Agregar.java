@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
+import Main.DB_conectable;
+
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -144,7 +147,7 @@ public class Agregar extends JFrame {
 		JButton btnInsert = new JButton("Insert");
 		btnInsert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				producto produktu = new producto(txtMota.getText(), txtModelo.getText(), Integer.valueOf(txtCant.getText()), Double.valueOf(txtPrezioa.getText()), txtMarka.getText());
+				DB_conectable produktu = new producto(txtMota.getText(), txtModelo.getText(), Integer.valueOf(txtCant.getText()), Double.valueOf(txtPrezioa.getText()), txtMarka.getText());
 				if(produktu.buscar()) {
 					System.out.println("Produktua ondo gehitu da.");
 					tablas.tabla.actualizarcomponente(table,null,null);

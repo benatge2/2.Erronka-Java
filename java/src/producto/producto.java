@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class producto {
+import Main.DB_conectable;
+
+public class producto implements DB_conectable {
 	private String mota;
 	private String modelo;
 	private int cant;
@@ -21,6 +23,7 @@ public class producto {
 		this.marka = marka;
 	}
 
+	@Override
 	public boolean buscar() {
 
 		boolean respuesta = false;
@@ -50,6 +53,7 @@ public class producto {
 		return respuesta;
 	}
 
+	@Override
 	public boolean insertar() {
 
 		DB.DBconnect obJConnection = new DB.DBconnect();

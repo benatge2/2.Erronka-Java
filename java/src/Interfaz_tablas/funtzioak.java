@@ -50,8 +50,9 @@ public class funtzioak extends JFrame {
 		setContentPane(contentPane);
 	}
 
-	public static void load_data(JTextField TFInsert, JTable table, JButton btnUpdate, String tabla,String columnaid,int pos) {
+	public static String[] load_data(JTextField TFInsert, JTable table, String tabla,String columnaid,int pos) {
 		// detectar casilla clicada
+		String buelta[] = new String [2];
 		int fila = table.getSelectedRow(); // primero, obtengo la fila seleccionada
 		int columna = table.getSelectedColumn();
 		if (fila > 0 && columna > 0) {// luego, obtengo la columna seleccionada
@@ -68,35 +69,42 @@ public class funtzioak extends JFrame {
 					ResultSet SQLResult = stmt.executeQuery("select * from " + tabla);
 					ResultSetMetaData rsMetaData = SQLResult.getMetaData();
 					String nombre = rsMetaData.getColumnName(columna + 1);
-
+					buelta [0] = nombre;
 					String ID = String.valueOf(table.getValueAt(fila, pos));
 					stmt = connection.createStatement();
 					SQLResult = stmt.executeQuery("select "+columnaid+" from "+tabla+" WHERE "+columnaid+" = " + ID);
 					SQLResult.next();
 					int id = SQLResult.getInt(columnaid);
-
-					myActionListener = new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							tablas.modify.update(tabla, nombre, columnaid, id, TFInsert.getText());
-							// String tabla, String columna , String columnaid, int id, String valor
-							tablas.tabla.actualizarcomponente(table);
-							//tabla.tabla.actualizartabla("konponenteak", table);
-							// Después de que se ha ejecutado el código, puedes eliminar el ActionListener
-							btnUpdate.removeActionListener(myActionListener);
-						}
-					};
-
-					btnUpdate.addActionListener(myActionListener);
-
+					buelta[1]= String.valueOf(id);
 					connection.close();
 					obJConnection.close();
 					stmt.close();
 					SQLResult.close();
+
+					//btnUpdate.addActionListener(myActionListener);
+
+					//myActionListener = new ActionListener()
+					/*btnUpdate.addActionListener(new ActionListener(){
+						public void actionPerformed(ActionEvent e) {
+							System.out.println("Update");
+							if(nombre != columnaid) {
+								tablas.modify.update(tabla, nombre, columnaid, id, TFInsert.getText());
+								// String tabla, String columna , String columnaid, int id, String valor
+								tablas.tabla.actualizarcomponente(table,null,null);
+								//tabla.tabla.actualizartabla("konponenteak", table);
+								// Después de que se ha ejecutado el código, puedes eliminar el ActionListener
+								//btnUpdate.removeActionListener(myActionListener);
+								btnUpdate.removeActionListener(null);
+
+							}
+						}
+					});*/
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
 			}
 		}
+		return buelta;
 	}
 
 }

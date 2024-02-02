@@ -34,6 +34,8 @@ public class Konponenteak extends JFrame {
 	private JTextField txtColumna;
 	private JTextField txtValor;
 
+	private static ActionListener myActionListener = null;
+
 	/**
 	 * Launch the application.
 	 */
@@ -69,13 +71,13 @@ public class Konponenteak extends JFrame {
 		DefaultTableModel modelo = new DefaultTableModel();
 		JTable table = new JTable(modelo);
 		scrollPane.setViewportView(table);
-		tablas.tabla.actualizarcomponente(table);
+		tablas.tabla.actualizarcomponente(table,null,null);
 		//tabla.tabla.actualizartabla("konponenteak", table);
 
 		JButton Update = new JButton("Actualizar");
 		Update.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tablas.tabla.actualizarcomponente(table);
+				tablas.tabla.actualizarcomponente(table,null,null);
 				//tabla.tabla.actualizartabla("konponenteak", table);
 			}
 		});
@@ -123,7 +125,7 @@ public class Konponenteak extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				tablas.modify.delete("konponenteak", "idprodukto", dato);
 				tablas.modify.delete("karakteristika", "idprodukto", dato);
-				tablas.tabla.actualizarcomponente(table);
+				tablas.tabla.actualizarcomponente(table,txtColumna.getText(),txtValor.getText());
 			}
 		});
 		btnEzabatu.setFont(new Font("Times New Roman", Font.BOLD, 15));
@@ -182,15 +184,34 @@ public class Konponenteak extends JFrame {
 			btnUpdate.setFont(new Font("Times New Roman", Font.BOLD, 15));
 			btnUpdate.setBounds(1126, 67, 128, 35);
 			contentPane.add(btnUpdate);
+			//btnUpdate.addActionListener(myActionListener);
+
 
 			JButton btnGet = new JButton("GET DATA");
 			btnGet.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					Interfaz_tablas.funtzioak.load_data(TFInsert, table, btnUpdate,"konponenteak","idprodukto",0);
+					Interfaz_tablas.funtzioak.load_data(TFInsert, table,"konponenteak","idprodukto",0);
 					int fila = table.getSelectedRow();
 					dato = String.valueOf(table.getValueAt(fila, 0));
 					System.out.println(dato);
 					txtID.setText(String.valueOf(dato));
+				}
+			});
+
+			btnUpdate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String valores[] = Interfaz_tablas.funtzioak.load_data(TFInsert, table, "konponenteak","idprodukto",0);
+					System.out.println("Update");
+					if(valores[0] != "idprodukto") {
+						tablas.modify.update("konponenteak", valores[0], "idprodukto", Integer.valueOf(valores[1]), TFInsert.getText());
+						// String tabla, String columna , String columnaid, int id, String valor
+						tablas.tabla.actualizarcomponente(table,null,null);
+						//tabla.tabla.actualizartabla("konponenteak", table);
+						// Después de que se ha ejecutado el código, puedes eliminar el ActionListener
+						//btnUpdate.removeActionListener(myActionListener);
+						btnUpdate.removeActionListener(null);
+
+					}
 				}
 			});
 

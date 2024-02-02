@@ -55,12 +55,12 @@ public class pedidos_clientes extends JFrame {
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		tablas.tabla.actualizartabla("pedidos_producto", table,"npedido",String.valueOf(npedido));
+		tablas.tabla.Select(table,String.valueOf(npedido));
 
 		Update = new JButton("Actualizar");
 		Update.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tablas.tabla.actualizartabla("pedidos_producto", table,"npedido",String.valueOf(npedido));
+				tablas.tabla.Select(table,"SELECT t1.nPedido, t1.nProducto, t1.cantidad, t2.modelo, t2.prezioa FROM pedidos_producto t1 JOIN konponenteak t2 ON t1.nProducto = t2.idprodukto WHERE t1.nPedido = " + npedido);
 			}
 		});
 		Update.setFont(new Font("Times New Roman", Font.BOLD, 15));

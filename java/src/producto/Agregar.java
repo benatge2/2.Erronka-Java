@@ -26,7 +26,6 @@ public class Agregar extends JFrame {
 	private JTextField txtModelo;
 	private JLabel lblMarka;
 	private JTextField txtMarka;
-	private JLabel lblDeskripzioa;
 	private JLabel lblCantidad;
 	private JTextField txtCant;
 	private JLabel lblPrezioa;
@@ -118,12 +117,6 @@ public class Agregar extends JFrame {
 		txtMarka.setBounds(479, 33, 128, 21);
 		contentPane.add(txtMarka);
 
-		lblDeskripzioa = new JLabel("Deskripzioa");
-		lblDeskripzioa.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDeskripzioa.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		lblDeskripzioa.setBounds(10, 71, 128, 21);
-		contentPane.add(lblDeskripzioa);
-
 		lblCantidad = new JLabel("Cantidad*");
 		lblCantidad.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCantidad.setFont(new Font("Times New Roman", Font.BOLD, 15));
@@ -148,17 +141,13 @@ public class Agregar extends JFrame {
 		txtPrezioa.setBounds(165, 242, 128, 21);
 		contentPane.add(txtPrezioa);
 
-		JTextArea txtDesc = new JTextArea();
-		txtDesc.setBounds(10, 91, 283, 120);
-		contentPane.add(txtDesc);
-
 		JButton btnInsert = new JButton("Insert");
 		btnInsert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				producto produktu = new producto(txtMota.getText(), txtModelo.getText(), txtDesc.getText(), Integer.valueOf(txtCant.getText()), Double.valueOf(txtPrezioa.getText()), txtMarka.getText());
+				producto produktu = new producto(txtMota.getText(), txtModelo.getText(), Integer.valueOf(txtCant.getText()), Double.valueOf(txtPrezioa.getText()), txtMarka.getText());
 				if(produktu.buscar()) {
 					System.out.println("Produktua ondo gehitu da.");
-					tablas.tabla.actualizarcomponente(table);
+					tablas.tabla.actualizarcomponente(table,null,null);
 				}else {
 					System.out.println("Produktua ez da gehitu.");
 				}

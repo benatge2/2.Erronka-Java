@@ -65,7 +65,7 @@ public class generador {
 				table.addCell(rs.getString("t2.modelo"));
 				table.addCell(rs.getString("t1.cantidad"));
 				table.addCell(precio + "$");
-				pt += precio;
+				pt = Interfaz_tablas.funtzioak.gehiketa(pt, precio);
 			}
 			DecimalFormat df = new DecimalFormat("#.00");
 			pt = Math.round(pt * 100.0) / 100.0;

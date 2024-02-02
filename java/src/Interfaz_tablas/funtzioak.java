@@ -50,10 +50,6 @@ public class funtzioak extends JFrame {
 		setContentPane(contentPane);
 	}
 
-	public static double gehiketa(double a,double b) {
-		return a+b;
-	}
-
 	public static String[] load_data(JTextField TFInsert, JTable table, String tabla,String columnaid,int pos) {
 		// detectar casilla clicada
 		String buelta[] = new String [2];

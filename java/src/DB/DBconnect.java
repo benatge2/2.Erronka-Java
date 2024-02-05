@@ -5,12 +5,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBconnect implements AutoCloseable {
+	private static final String connect= "server";
+	//private static final String connect= "local";
     private static final String PASS = "1WMG2023";
-	private static final String USER = "root";
-	private static final String URL = "jdbc:mysql://localhost:3306/2.erronka";
+	private String USER = "root";
+	private String URL = "jdbc:mysql://localhost:3306/2.erronka";
 	private Connection connection;
 
     public DBconnect() {
+    	if(connect.equals("server")) {
+    		this.USER = "root";this.URL = "jdbc:mysql://localhost:3306/2.erronka";
+    	}else if(connect.equals("local")) {
+    		this.USER = "benatge";this.URL = "jdbc:mysql://192.168.115.4:3306/2.erronka";
+    	}
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 

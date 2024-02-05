@@ -109,7 +109,7 @@ public class karakteristikak extends JFrame {
 		JButton btnGehitu = new JButton("Gehitu");
 		btnGehitu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tablas.modify.insertar(txtkarakteristika.getText(),ID)) {
+				if(tablas.modify.insertar_caracteristica(txtkarakteristika.getText(),ID)) {
 					System.out.println("Karakteristika gehitua..");
 				}
 			}

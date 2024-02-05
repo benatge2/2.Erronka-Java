@@ -10,6 +10,9 @@ import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -24,11 +27,11 @@ public class Pedidos extends JFrame {
 	private JButton btnGetData;
 	private JButton btnVer_tabla;
 	private JTextField txtPedido;
-	private JButton btnGetData2;
 	private JButton btnVer_tabla_1;
 	private JButton btnEntregado;
 	private JButton btnEnviado;
 	private JButton btnPreparado;
+	public static ResultSet SQLResult = null;
 
 	/**
 	 * Launch the application.
@@ -65,7 +68,16 @@ public class Pedidos extends JFrame {
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		tablas.tabla.actualizartabla("pedidos", table);
+		SQLResult = tablas.tabla.actualizartabla("pedidos", table);
+
+		table.addMouseListener( new MouseAdapter()
+		{
+		    public void mousePressed(MouseEvent e)
+		    {
+		        funtzioak.get_data(e, txtNIF, SQLResult);
+		        funtzioak.get_id(e, txtPedido, SQLResult);
+		    }
+		});
 
 		JButton Update = new JButton("Actualizar");
 		Update.setBounds(10, 23, 106, 23);
@@ -97,28 +109,15 @@ public class Pedidos extends JFrame {
 		btnExit.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		contentPane.add(btnExit);
 
-		btnGetData = new JButton("Get DNI");
-		btnGetData.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int fila = table.getSelectedRow();
-				String dato = String.valueOf(table.getValueAt(fila, 2));
-				if (String.valueOf(dato) != null) {
-					txtNIF.setText(String.valueOf(dato));
-				}
-			}
-		});
-		btnGetData.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		btnGetData.setBounds(965, 151, 170, 35);
-		contentPane.add(btnGetData);
 
 		btnVer_tabla = new JButton("Ver pedidos");
 		btnVer_tabla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tablas.tabla.actualizartabla("pedidos", table,"idusuario",txtNIF.getText());
+				SQLResult = tablas.tabla.actualizartabla("pedidos", table,"idusuario",txtNIF.getText());
 			}
 		});
 		btnVer_tabla.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		btnVer_tabla.setBounds(965, 209, 170, 35);
+		btnVer_tabla.setBounds(965, 151, 170, 35);
 		contentPane.add(btnVer_tabla);
 
 		txtPedido = new JTextField();
@@ -127,20 +126,6 @@ public class Pedidos extends JFrame {
 		txtPedido.setColumns(10);
 		txtPedido.setBounds(900, 259, 300, 60);
 		contentPane.add(txtPedido);
-
-		btnGetData2 = new JButton("Get nPedido");
-		btnGetData2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int fila = table.getSelectedRow();
-				String dato = String.valueOf(table.getValueAt(fila, 1));
-				if (String.valueOf(dato) != null) {
-					txtPedido.setText(String.valueOf(dato));
-				}
-			}
-		});
-		btnGetData2.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		btnGetData2.setBounds(965, 339, 170, 35);
-		contentPane.add(btnGetData2);
 
 		btnVer_tabla_1 = new JButton("Ver pedido");
 		btnVer_tabla_1.addActionListener(new ActionListener() {
@@ -152,7 +137,7 @@ public class Pedidos extends JFrame {
 			}
 		});
 		btnVer_tabla_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		btnVer_tabla_1.setBounds(965, 404, 170, 35);
+		btnVer_tabla_1.setBounds(965, 330, 170, 35);
 		contentPane.add(btnVer_tabla_1);
 
 		btnEntregado = new JButton("Entregado");
@@ -181,7 +166,7 @@ public class Pedidos extends JFrame {
 		btnPreparado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tablas.modify.update("pedidos", "estado", "npedido", Integer.valueOf(txtPedido.getText()), "Preparado");
-				tablas.tabla.actualizartabla("pedidos", table);
+				SQLResult = tablas.tabla.actualizartabla("pedidos", table);
 			}
 		});
 		btnPreparado.setFont(new Font("Times New Roman", Font.BOLD, 20));

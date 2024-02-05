@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 
 public class Usuarios extends JFrame {
@@ -35,6 +36,9 @@ public class Usuarios extends JFrame {
 	 * Create the frame.
 	 */
 	public Usuarios(boolean admin) {
+		LocalDate fecha = LocalDate.now();
+		System.out.println(fecha);
+
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);

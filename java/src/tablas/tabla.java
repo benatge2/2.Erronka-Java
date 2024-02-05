@@ -15,9 +15,10 @@ import javax.swing.table.TableRowSorter;
 
 public class tabla {
 
-	public static void actualizarcomponente(JTable table, String zutabe,String valor) {
+	public static ResultSet actualizarcomponente(JTable table, String zutabe,String valor) {
 		String x = "caracteristicas";
 		String query;
+		ResultSet rs = null;
 		if(zutabe == null) {
 			query = "select p.idprodukto, p.konponenteMota, p.img, p.modelo, p.kantitatea, p.prezioa, p.marka, "
 					+ "COALESCE(GROUP_CONCAT(c.karakteristika1), 'Sin características') AS caracteristicas from konponenteak p "
@@ -44,7 +45,6 @@ public class tabla {
 			DB.DBconnect obJConnection = new DB.DBconnect();
 			Connection connection = obJConnection.getConnection();
 			Statement st;
-			ResultSet rs;
 			//Preparamos la consulta
 			DefaultTableModel model = new DefaultTableModel();
 			TableRowSorter<TableModel> order = new TableRowSorter<TableModel>(model);
@@ -70,9 +70,11 @@ public class tabla {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+		return rs;
 	}
 
-	public static void actualizartabla(String opciontabla, JTable table) {
+	public static ResultSet actualizartabla(String opciontabla, JTable table) {
+		ResultSet rs = null;
 		try
 		{
 		   Class.forName("com.mysql.cj.jdbc.Driver");
@@ -85,7 +87,6 @@ public class tabla {
 			DB.DBconnect obJConnection = new DB.DBconnect();
 			Connection connection = obJConnection.getConnection();
 			Statement st;
-			ResultSet rs;
 			//Preparamos la consulta
 			DefaultTableModel model = new DefaultTableModel();
 			TableRowSorter<TableModel> order = new TableRowSorter<TableModel>(model);
@@ -111,9 +112,11 @@ public class tabla {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+		return rs;
 	}
 
-	public static void actualizartabla(String opciontabla, JTable table, String identificador, String id) {
+	public static ResultSet actualizartabla(String opciontabla, JTable table, String identificador, String id) {
+		ResultSet rs = null;
 		try
 		{
 		   Class.forName("com.mysql.cj.jdbc.Driver");
@@ -126,7 +129,6 @@ public class tabla {
 			DB.DBconnect obJConnection = new DB.DBconnect();
 			Connection connection = obJConnection.getConnection();
 			Statement st;
-			ResultSet rs;
 			//Preparamos la consulta
 			DefaultTableModel model = new DefaultTableModel();
 			TableRowSorter<TableModel> order = new TableRowSorter<TableModel>(model);
@@ -154,6 +156,7 @@ public class tabla {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+		return rs;
 	}
 
 	public static void Select (JTable table,String query) {

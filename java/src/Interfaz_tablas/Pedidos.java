@@ -143,7 +143,7 @@ public class Pedidos extends JFrame {
 		btnEntregado = new JButton("Entregado");
 		btnEntregado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tablas.modify.update("pedidos", "estado", "npedido", Integer.valueOf(txtPedido.getText()), "Entregado");
+				tablas.modify.update("pedidos", "estado", "npedido", txtPedido.getText(), "Entregado");
 				tablas.tabla.actualizartabla("pedidos", table);
 			}
 		});
@@ -154,7 +154,7 @@ public class Pedidos extends JFrame {
 		btnEnviado = new JButton("Envidado");
 		btnEnviado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tablas.modify.update("pedidos", "estado", "npedido", Integer.valueOf(txtPedido.getText()), "Envidado");
+				tablas.modify.update("pedidos", "estado", "npedido", txtPedido.getText(), "Envidado");
 				tablas.tabla.actualizartabla("pedidos", table);
 			}
 		});
@@ -165,7 +165,7 @@ public class Pedidos extends JFrame {
 		btnPreparado = new JButton("Preparado");
 		btnPreparado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tablas.modify.update("pedidos", "estado", "npedido", Integer.valueOf(txtPedido.getText()), "Preparado");
+				tablas.modify.update("pedidos", "estado", "npedido",txtPedido.getText(), "Preparado");
 				SQLResult = tablas.tabla.actualizartabla("pedidos", table);
 			}
 		});

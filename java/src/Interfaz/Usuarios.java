@@ -105,6 +105,14 @@ public class Usuarios extends JFrame {
 		contentPane.add(btnExit);
 		if(admin) {
 			JButton btnLangileak = new JButton("Langileak");
+			btnLangileak.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Interfaz_tablas.Langileak nF = new Interfaz_tablas.Langileak(admin);
+					nF.setVisible(true);
+					setVisible(false); //set invisible
+					dispose();//destroy
+				}
+			});
 			btnLangileak.setFont(new Font("Times New Roman", Font.BOLD, 38));
 			btnLangileak.setBounds(299, 431, 261, 183);
 			contentPane.add(btnLangileak);

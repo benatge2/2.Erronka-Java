@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,10 +24,13 @@ public class karakteristikak extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField TFInsert;
+	private JTextField txtaux;
 	private JTextField txtID;
 	private static String dato=null;
+	public static ResultSet SQLResult = null;
 	private static String ID;
 	private JTextField txtkarakteristika;
+	private JButton btnDelete;
 
 	/**
 	 * Launch the application.
@@ -60,45 +66,41 @@ public class karakteristikak extends JFrame {
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		tablas.tabla.actualizartabla("karakteristika",table,"idprodukto",String.valueOf(idprodukto));
+		SQLResult = tablas.tabla.actualizartabla("karakteristika",table,"idprodukto",String.valueOf(idprodukto));
+
+		txtID = new JTextField();
+		txtID.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		txtID.setColumns(10);
+		txtID.setBounds(0,0,0,0);
+		contentPane.add(txtID);
 
 		TFInsert = new JTextField();
 		TFInsert.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		TFInsert.setBounds(639, 49, 102, 36);
+		TFInsert.setBounds(523, 49, 169, 36);
 		contentPane.add(TFInsert);
 		TFInsert.setColumns(10);
 
 		JButton btnUpdate = new JButton("UPDATE");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tablas.modify.update("karakteristika", "karakteristika1", "id", Integer.valueOf(ID), TFInsert.getText());
-				tablas.tabla.actualizartabla("karakteristika",table,"idprodukto",String.valueOf(idprodukto));
+				tablas.modify.update("karakteristika", "karakteristika1", "id", ID, TFInsert.getText());
+				SQLResult = tablas.tabla.actualizartabla("karakteristika",table,"idprodukto",String.valueOf(idprodukto));
 			}
 		});
 		btnUpdate.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		btnUpdate.setBounds(751, 49, 102, 36);
+		btnUpdate.setBounds(708, 49, 102, 36);
 		contentPane.add(btnUpdate);
 
-		JButton btnGet = new JButton("GET DATA");
-		btnGet.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int fila = table.getSelectedRow();
-				int columna = table.getSelectedColumn();
-				ID = String.valueOf(table.getValueAt(fila, 2));
-				dato = String.valueOf(table.getValueAt(fila, columna));
-				System.out.println(dato);
-				TFInsert.setText(String.valueOf(dato));
-			}
-		});
-
-		btnGet.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		btnGet.setBounds(512, 49, 117, 36);
-		contentPane.add(btnGet);
-
-		JLabel lblNewLabel = new JLabel("ID:");
+		JLabel lblNewLabel = new JLabel("VALOR:");
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		lblNewLabel.setBounds(670, 23, 41, 24);
+		lblNewLabel.setBounds(572, 23, 80, 24);
 		contentPane.add(lblNewLabel);
+
+		txtaux = new JTextField();
+		txtaux.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		txtaux.setColumns(10);
+		txtaux.setBounds(0,0,0,0);
+		contentPane.add(txtaux);
 
 		txtkarakteristika = new JTextField();
 		txtkarakteristika.setFont(new Font("Times New Roman", Font.BOLD, 20));
@@ -109,7 +111,8 @@ public class karakteristikak extends JFrame {
 		JButton btnGehitu = new JButton("Gehitu");
 		btnGehitu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tablas.modify.insertar_caracteristica(txtkarakteristika.getText(),ID)) {
+				if(tablas.modify.insertar_caracteristica(txtkarakteristika.getText(),String.valueOf(idprodukto))) {
+					SQLResult = tablas.tabla.actualizartabla("karakteristika",table,"idprodukto",String.valueOf(idprodukto));
 					System.out.println("Karakteristika gehitua..");
 				}
 			}
@@ -117,5 +120,32 @@ public class karakteristikak extends JFrame {
 		btnGehitu.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		btnGehitu.setBounds(708, 105, 102, 39);
 		contentPane.add(btnGehitu);
+
+		btnDelete = new JButton("DETELE");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tablas.modify.delete("karakteristika", "id", txtID.getText());
+				SQLResult = tablas.tabla.actualizartabla("karakteristika",table,"idprodukto",String.valueOf(idprodukto));
+			}
+		});
+		btnDelete.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		btnDelete.setBounds(708, 8, 102, 39);
+		contentPane.add(btnDelete);
+
+		table.addMouseListener( new MouseAdapter()
+		{
+		    public void mousePressed(MouseEvent e)
+		    {
+		    	funtzioak.get_column(e,txtaux, SQLResult);
+		    	String aux = txtaux.getText();
+		    	if(!aux.equals("id")) {
+		    		funtzioak.get_data(e, TFInsert, SQLResult);
+		    		funtzioak.get_id(e, txtID, SQLResult);
+		    		ID = txtID.getText();
+		    	}else {
+		    		TFInsert.setText(" ");
+		    	}
+		    }
+		});
 	}
 }

@@ -13,9 +13,9 @@ public class DBconnect implements AutoCloseable {
 	private Connection connection;
 
     public DBconnect() {
-    	if(connect.equals("server")) {
+    	if(connect.equals("local")) {
     		this.USER = "root";this.URL = "jdbc:mysql://localhost:3306/2.erronka";
-    	}else if(connect.equals("local")) {
+    	}else if(connect.equals("server")) {
     		this.USER = "benatge";this.URL = "jdbc:mysql://192.168.115.4:3306/2.erronka";
     	}
         try {

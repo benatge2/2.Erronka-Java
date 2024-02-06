@@ -120,8 +120,13 @@ public class Konponenteak extends JFrame {
 		    public void mousePressed(MouseEvent e)
 		    {
 		        funtzioak.get_column(e,txtColumna, SQLResult);
-		        funtzioak.get_data(e, TFInsert, SQLResult);
-		        dato = TFInsert.getText();
+		        String aux = txtColumna.getText();
+		        if(!aux.equals("idprodukto")) {
+		    		funtzioak.get_data(e, TFInsert, SQLResult);
+		    		dato = TFInsert.getText();
+		    	}else {
+		    		TFInsert.setText(" ");
+		    	}
 		        funtzioak.get_id(e, txtID, SQLResult);
 		    }
 		});
@@ -213,7 +218,7 @@ public class Konponenteak extends JFrame {
 						if(txtColumna.getText().equals("prezioa") && !TFInsert.getText().equals(dato)) {
 							tablas.modify.guardar_historial(txtID.getText(),TFInsert.getText());
 						}
-						tablas.modify.update("konponenteak", txtColumna.getText(), "idprodukto", Integer.valueOf(txtID.getText()),
+						tablas.modify.update("konponenteak", txtColumna.getText(), "idprodukto", txtID.getText(),
 								TFInsert.getText());
 						// String tabla, String columna , String columnaid, int id, String valor
 						SQLResult = tablas.tabla.actualizarcomponente(table, null, null);

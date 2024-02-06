@@ -12,9 +12,10 @@ import DB.DBconnect;
 
 public class modify {
 
-	public static void update(String tabla, String columna, String columnaid, int id, String valor) {
-		String query = "UPDATE " + tabla + " SET " + columna + " = ? WHERE " + columnaid + " = " + id;
-		System.out.println(query + valor);
+	public static void update(String tabla, String columna, String columnaid, String id, String valor) {
+		String query = "UPDATE " + tabla + " SET " + columna + " = ? WHERE " + columnaid + " = '" + id+"';";
+		System.out.println(query);
+		System.out.println(valor);
 		try (DBconnect obJConnection = new DBconnect()) {
 			Connection connection = obJConnection.getConnection();
 			PreparedStatement ps = connection.prepareStatement(query);
@@ -34,6 +35,7 @@ public class modify {
 		Statement ps = null;
 		try {
 			String query = "DELETE FROM " + tabla + " WHERE " + columna + " = '" + valor + "'";
+			System.out.println(query);
 			ps = connection.createStatement();
 			ps.executeUpdate(query);
 

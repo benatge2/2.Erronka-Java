@@ -9,6 +9,7 @@ public class main {
 
 	public static void main(String[] args) {
 		APP window = new APP();
+		System.out.println("Current JVM version - " + System.getProperty("java.version"));
 		window.setVisible(true);
 	}
 }

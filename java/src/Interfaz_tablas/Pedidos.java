@@ -130,7 +130,7 @@ public class Pedidos extends JFrame {
 		btnVer_tabla_1 = new JButton("Ver pedido");
 		btnVer_tabla_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Interfaz_tablas.pedidos_clientes nF = new Interfaz_tablas.pedidos_clientes(Integer.valueOf(txtPedido.getText()),admin);
+				Interfaz_tablas.pedidos_clientes nF = new Interfaz_tablas.pedidos_clientes(Integer.valueOf(txtPedido.getText()),txtNIF.getText(),admin);
 				nF.setVisible(true);
 				setVisible(false); // set invisible
 				dispose();// destroy

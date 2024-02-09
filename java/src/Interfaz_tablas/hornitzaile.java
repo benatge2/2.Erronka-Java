@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class Langileak extends JFrame {
+public class hornitzaile extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private static String dato = null;
@@ -39,7 +39,7 @@ public class Langileak extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Langileak frame = new Langileak(true);
+					hornitzaile frame = new hornitzaile(true);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +51,7 @@ public class Langileak extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Langileak(boolean admin) {
+	public hornitzaile(boolean admin) {
 		setBackground(new Color(240, 240, 240));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
@@ -68,7 +68,7 @@ public class Langileak extends JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 
-		SQLResult = tablas.tabla.actualizartabla("langileak", table);
+		SQLResult = tablas.tabla.actualizartabla("hornitzaileak", table);
 
 		JButton btnExit = new JButton("Atzera");
 		btnExit.setBounds(1062, 627, 156, 43);
@@ -99,7 +99,7 @@ public class Langileak extends JFrame {
 		btnBilatu.setBounds(981, 407, 180, 35);
 		btnBilatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SQLResult = tablas.tabla.actualizartabla("langileak",table,String.valueOf(txtColumna.getText()),String.valueOf(txtValor.getText()));
+				SQLResult = tablas.tabla.actualizartabla("hornitzaileak",table,String.valueOf(txtColumna.getText()),String.valueOf(txtValor.getText()));
 			}
 		});
 		btnBilatu.setFont(new Font("Times New Roman", Font.BOLD, 20));
@@ -129,17 +129,6 @@ public class Langileak extends JFrame {
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		contentPane.add(lblNewLabel);
 
-		JButton btnEzabatu = new JButton("EZABATU");
-		btnEzabatu.setBounds(1150, 204, 110, 35);
-		btnEzabatu.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		contentPane.add(btnEzabatu);
-		btnEzabatu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tablas.modify.delete("langileak", "NAN", txtID.getText());
-				SQLResult = tablas.tabla.actualizartabla("langileak", table);
-			}
-		});
-
 		TFInsert = new JTextField();
 		TFInsert.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		TFInsert.setBounds(992, 250, 150, 36);
@@ -152,48 +141,51 @@ public class Langileak extends JFrame {
 		lblValor.setBounds(895, 255, 100, 25);
 		contentPane.add(lblValor);
 
-		JButton btnUpdate = new JButton("UPDATE");
-		btnUpdate.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		btnUpdate.setBounds(1150, 250, 110, 35);
-		contentPane.add(btnUpdate);
-
 		JButton Update = new JButton("Actualizar");
 		Update.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SQLResult = tablas.tabla.actualizartabla("langileak", table);
+				SQLResult = tablas.tabla.actualizartabla("hornitzaileak", table);
 			}
 		});
 		Update.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		Update.setBounds(10, 11, 106, 23);
 		contentPane.add(Update);
 
-		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Interfaz_tablas.LangileAgregar nF = new Interfaz_tablas.LangileAgregar();
-				nF.setVisible(true);
-			}
-		});
-		btnAgregar.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		btnAgregar.setBounds(76, 605, 111, 30);
-		contentPane.add(btnAgregar);
-		btnUpdate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Update");
-					tablas.modify.update("langileak", txtColumna.getText(), "NAN", txtID.getText(),
-							TFInsert.getText());
-					// String tabla, String columna , String columnaid, string id, String valor
-					SQLResult = tablas.tabla.actualizartabla("langileak", table);
-					// tabla.tabla.actualizartabla("konponenteak", table);
-					btnUpdate.removeActionListener(null);
+		if(admin) {
+			JButton btnUpdate = new JButton("UPDATE");
+			btnUpdate.setFont(new Font("Times New Roman", Font.BOLD, 15));
+			btnUpdate.setBounds(1150, 250, 110, 35);
+			contentPane.add(btnUpdate);
 
+			JButton btnEzabatu = new JButton("EZABATU");
+			btnEzabatu.setBounds(1150, 204, 110, 35);
+			btnEzabatu.setFont(new Font("Times New Roman", Font.BOLD, 15));
+			contentPane.add(btnEzabatu);
+
+			btnUpdate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("Update");
+						tablas.modify.update("hornitzaileak", txtColumna.getText(), "NAN", txtID.getText(),
+								TFInsert.getText());
+						// String tabla, String columna , String columnaid, string id, String valor
+						SQLResult = tablas.tabla.actualizartabla("hornitzaileak", table);
+						// tabla.tabla.actualizartabla("konponenteak", table);
+						btnUpdate.removeActionListener(null);
+
+					}
+			});
+			btnEzabatu.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					tablas.modify.delete("hornitzaileak", "NAN", txtID.getText());
+					SQLResult = tablas.tabla.actualizartabla("hornitzaileak", table);
 				}
-		});
+			});
+		}
 
 		table.addMouseListener( new MouseAdapter(){
 		    public void mousePressed(MouseEvent e)
 		    {
-		    	funtzioak.get_column(e,txtColumna, SQLResult);
+		        funtzioak.get_column(e,txtColumna, SQLResult);
 		        String aux = txtColumna.getText();
 		        if(!aux.equals("NAN")) {
 		    		funtzioak.get_data(e, TFInsert, SQLResult);
@@ -208,3 +200,4 @@ public class Langileak extends JFrame {
 		});
 	}
 }
+

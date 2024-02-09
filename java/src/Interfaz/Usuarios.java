@@ -59,6 +59,14 @@ public class Usuarios extends JFrame {
 		});
 
 		JButton btnHornitzaileak = new JButton("Hornitzaileak");
+		btnHornitzaileak.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Interfaz_tablas.hornitzaile nF = new Interfaz_tablas.hornitzaile(admin);
+				nF.setVisible(true);
+				setVisible(false); //set invisible
+				dispose();//destroy
+			}
+		});
 		btnHornitzaileak.setFont(new Font("Times New Roman", Font.BOLD, 38));
 		btnHornitzaileak.setBounds(79, 75, 261, 183);
 		contentPane.add(btnHornitzaileak);
@@ -66,7 +74,10 @@ public class Usuarios extends JFrame {
 		JButton btnBezeroak = new JButton("Bezeroak");
 		btnBezeroak.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				Interfaz_tablas.bezeroak nF = new Interfaz_tablas.bezeroak(admin);
+				nF.setVisible(true);
+				setVisible(false); //set invisible
+				dispose();//destroy
 			}
 		});
 		btnBezeroak.setFont(new Font("Times New Roman", Font.BOLD, 38));

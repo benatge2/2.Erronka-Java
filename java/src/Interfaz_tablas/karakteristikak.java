@@ -141,9 +141,11 @@ public class karakteristikak extends JFrame {
 		    	if(!aux.equals("id")) {
 		    		funtzioak.get_data(e, TFInsert, SQLResult);
 		    		funtzioak.get_id(e, txtID, SQLResult);
+		    		TFInsert.setEditable(true);
 		    		ID = txtID.getText();
 		    	}else {
 		    		TFInsert.setText(" ");
+		    		TFInsert.setEditable(false);
 		    	}
 		    }
 		});

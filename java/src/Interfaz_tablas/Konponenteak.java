@@ -123,9 +123,11 @@ public class Konponenteak extends JFrame {
 		        String aux = txtColumna.getText();
 		        if(!aux.equals("idprodukto")) {
 		    		funtzioak.get_data(e, TFInsert, SQLResult);
+		    		TFInsert.setEditable(true);
 		    		dato = TFInsert.getText();
 		    	}else {
 		    		TFInsert.setText(" ");
+		    		TFInsert.setEditable(false);
 		    	}
 		        funtzioak.get_id(e, txtID, SQLResult);
 		    }
@@ -158,6 +160,17 @@ public class Konponenteak extends JFrame {
 		btnBilatu.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		btnBilatu.setBounds(941, 337, 180, 35);
 		contentPane.add(btnBilatu);
+
+		JButton btnVER = new JButton("VER HISTORIAL");
+		btnVER.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				historial nF = new historial(admin,txtID.getText());
+				nF.setVisible(true);
+			}
+		});
+		btnVER.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		btnVER.setBounds(273, 562, 200, 30);
+		contentPane.add(btnVER);
 
 		if (admin) {
 

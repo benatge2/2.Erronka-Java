@@ -11,12 +11,22 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Benatge/Desktop/2.erronka/2.Erronka/java/res/jar_files/itextpdf-5.5.9.jar">
+	<classpathentry kind="lib" path="C:/Users/Benatge/Desktop/2.erronka/2.Erronka-Java/java/res/jar_files/itextpdf-5.5.9.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Benatge/Desktop/2.erronka/2.Erronka/java/res/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0.jar">
+	<classpathentry kind="lib" path="C:/Users/Benatge/Desktop/2.erronka/2.Erronka-Java/java/res/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="res/jar_files/commons-net-3.10.0.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="res/jar_files/commons-net-3.10.0-sources.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

@@ -28,7 +28,7 @@ public class pedidos_clientes extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					pedidos_clientes frame = new pedidos_clientes(10, true);
+					pedidos_clientes frame = new pedidos_clientes(10,"12345678A", true);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +40,7 @@ public class pedidos_clientes extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public pedidos_clientes(int npedido,boolean admin) {
+	public pedidos_clientes(int npedido,String NAN,boolean admin) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -55,12 +55,12 @@ public class pedidos_clientes extends JFrame {
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		tabla.tabla.actualizartabla("pedidos_producto", table,"npedido",String.valueOf(npedido));
+		tablas.tabla.Select(table,String.valueOf(npedido));
 
 		Update = new JButton("Actualizar");
 		Update.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tabla.tabla.actualizartabla("pedidos_producto", table,"npedido",String.valueOf(npedido));
+				tablas.tabla.Select(table,"SELECT t1.nPedido, t1.nProducto, t1.cantidad, t2.modelo, t2.prezioa FROM pedidos_producto t1 JOIN konponenteak t2 ON t1.nProducto = t2.idprodukto WHERE t1.nPedido = " + npedido);
 			}
 		});
 		Update.setFont(new Font("Times New Roman", Font.BOLD, 15));
@@ -83,7 +83,7 @@ public class pedidos_clientes extends JFrame {
 		btnCrearFactura = new JButton("CREAR FACTURA");
 		btnCrearFactura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				factura.generador.crear_factura(npedido);;
+				factura.generador.crear_factura(npedido,NAN);;
 			}
 		});
 		btnCrearFactura.setFont(new Font("Times New Roman", Font.BOLD, 20));

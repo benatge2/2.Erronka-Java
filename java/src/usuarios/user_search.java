@@ -1,4 +1,4 @@
-package factura;
+package usuarios;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -3,6 +3,7 @@ package Interfaz_tablas;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -50,13 +51,75 @@ public class funtzioak extends JFrame {
 		setContentPane(contentPane);
 	}
 
-	public static void load_data(JTextField TFInsert, JTable table, JButton btnUpdate) {
+	public static void get_column(MouseEvent e,JTextField txt, ResultSet SQLResult) {
+		JTable source = (JTable)e.getSource();
+		int row = source.rowAtPoint( e.getPoint() );
+		int columna = source.columnAtPoint( e.getPoint() );
+
+		DB.DBconnect obJConnection = new DB.DBconnect();
+		Connection connection = obJConnection.getConnection();
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			ResultSetMetaData rsMetaData = SQLResult.getMetaData();
+
+		    String nombre2 = rsMetaData.getColumnName(columna + 1);
+		    txt.setText(nombre2);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+
+		if (! source.isRowSelected(row))
+		    source.changeSelection(row, columna, false, false);
+	}
+
+	public static void get_data(MouseEvent e,JTextField txt, ResultSet SQLResult) {
+		JTable source = (JTable)e.getSource();
+		int row = source.rowAtPoint( e.getPoint() );
+		int columna = source.columnAtPoint( e.getPoint() );
+
+		DB.DBconnect obJConnection = new DB.DBconnect();
+		Connection connection = obJConnection.getConnection();
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			ResultSetMetaData rsMetaData = SQLResult.getMetaData();
+			txt.setText(String.valueOf(source.getValueAt(row, columna)));
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		if (! source.isRowSelected(row))
+		    source.changeSelection(row, columna, false, false);
+
+	}
+
+	public static void get_id(MouseEvent e,JTextField txt, ResultSet SQLResult) {
+		JTable source = (JTable)e.getSource();
+		int row = source.rowAtPoint( e.getPoint() );
+		int columna = source.columnAtPoint( e.getPoint() );
+
+		DB.DBconnect obJConnection = new DB.DBconnect();
+		Connection connection = obJConnection.getConnection();
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			ResultSetMetaData rsMetaData = SQLResult.getMetaData();
+			txt.setText(String.valueOf(source.getValueAt(row, 0)));
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		if (! source.isRowSelected(row))
+		    source.changeSelection(row, columna, false, false);
+
+	}
+
+	public static String[] load_data(JTextField TFInsert, JTable table, String tabla,String columnaid,int pos) {
 		// detectar casilla clicada
+		String buelta[] = new String [2];
 		int fila = table.getSelectedRow(); // primero, obtengo la fila seleccionada
-		int columna = table.getSelectedColumn();
-		if (fila > 0 && columna > 0) {// luego, obtengo la columna seleccionada
-			String dato = String.valueOf(table.getValueAt(fila, columna)); // por ultimo, obtengo el valor
-																			// de la celda
+		int columna = table.getSelectedColumn();// luego, obtengo la columna seleccionada
+		if (fila > 0 && columna > 0) {
+			String dato = String.valueOf(table.getValueAt(fila, columna)); // por ultimo, obtengo el valor de la celda
 			if (String.valueOf(dato) != null) {
 				TFInsert.setText(String.valueOf(dato));
 				DB.DBconnect obJConnection = new DB.DBconnect();
@@ -64,38 +127,27 @@ public class funtzioak extends JFrame {
 				Statement stmt;
 				try {
 					stmt = connection.createStatement();
-					ResultSet rs = stmt.executeQuery("select * from konponenteak");
-					ResultSetMetaData rsMetaData = rs.getMetaData();
+					ResultSet SQLResult = stmt.executeQuery("select * from " + tabla);
+					ResultSetMetaData rsMetaData = SQLResult.getMetaData();
 					String nombre = rsMetaData.getColumnName(columna + 1);
-
-					String ID = String.valueOf(table.getValueAt(fila, 0));
+					buelta [0] = nombre;
+					String ID = String.valueOf(table.getValueAt(fila, pos));
 					stmt = connection.createStatement();
-					rs = stmt.executeQuery("select id from konponenteak WHERE id = " + ID);
-					rs.next();
-					int id = rs.getInt("id");
-
-					myActionListener = new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							tabla.modify.update("konponenteak", nombre, "id", id, TFInsert.getText());
-							// String tabla, String columna , String columnaid, int id, String valor
-							tabla.tabla.actualizarcomponente(table);
-							//tabla.tabla.actualizartabla("konponenteak", table);
-							// Después de que se ha ejecutado el código, puedes eliminar el ActionListener
-							btnUpdate.removeActionListener(myActionListener);
-						}
-					};
-
-					btnUpdate.addActionListener(myActionListener);
-
+					SQLResult = stmt.executeQuery("select "+columnaid+" from "+tabla+" WHERE "+columnaid+" = " + ID);
+					SQLResult.next();
+					int id = SQLResult.getInt(columnaid);
+					buelta[1]= String.valueOf(id);
 					connection.close();
 					obJConnection.close();
 					stmt.close();
-					rs.close();
+					SQLResult.close();
+
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
 			}
 		}
+		return buelta;
 	}
 
 }

@@ -6,23 +6,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class producto {
+import Main.DB_conectable;
+
+public class producto implements DB_conectable {
 	private String mota;
 	private String modelo;
-	private String desc;
 	private int cant;
 	private double prezioa;
 	private String marka;
 
-	public producto(String mota, String modelo, String desc, int cant, double prezioa, String marka) {
+	public producto(String mota, String modelo, int cant, double prezioa, String marka) {
 		this.mota = mota;
 		this.modelo = modelo;
-		this.desc = desc;
 		this.cant = cant;
 		this.prezioa = prezioa;
 		this.marka = marka;
 	}
 
+	@Override
 	public boolean buscar() {
 
 		boolean respuesta = false;
@@ -52,20 +53,20 @@ public class producto {
 		return respuesta;
 	}
 
+	@Override
 	public boolean insertar() {
 
 		DB.DBconnect obJConnection = new DB.DBconnect();
 		Connection connection = obJConnection.getConnection();
 		try {
 			PreparedStatement stmt = connection.prepareStatement(
-					"INSERT INTO konponenteak (konponentemota,img,modelo,descripzioa,kantitatea,prezioa,marka) VALUES (?, ?, ?, ?, ? , ?, ?)");
+					"INSERT INTO konponenteak (konponentemota,img,modelo,kantitatea,prezioa,marka) VALUES (?, ?, ?, ?, ?, ?)");
 			stmt.setString(1, this.getMota());
 			stmt.setString(2, "placa1.png");
 			stmt.setString(3, this.getModelo());
-			stmt.setString(4, this.getDesc());
-			stmt.setInt(5, this.getCant());
-			stmt.setDouble(6, this.getPrezioa());
-			stmt.setString(7, this.getMarka());
+			stmt.setInt(4, this.getCant());
+			stmt.setDouble(5, this.getPrezioa());
+			stmt.setString(6, this.getMarka());
 			stmt.executeUpdate();
 			// stmt.setDate(3, new Date());
 		} catch (SQLException e) {
@@ -89,14 +90,6 @@ public class producto {
 
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
-	}
-
-	public String getDesc() {
-		return desc;
-	}
-
-	public void setDesc(String desc) {
-		this.desc = desc;
 	}
 
 	public int getCant() {

@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 
 public class Usuarios extends JFrame {
@@ -35,6 +36,9 @@ public class Usuarios extends JFrame {
 	 * Create the frame.
 	 */
 	public Usuarios(boolean admin) {
+		LocalDate fecha = LocalDate.now();
+		System.out.println(fecha);
+
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
@@ -55,6 +59,14 @@ public class Usuarios extends JFrame {
 		});
 
 		JButton btnHornitzaileak = new JButton("Hornitzaileak");
+		btnHornitzaileak.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Interfaz_tablas.hornitzaile nF = new Interfaz_tablas.hornitzaile(admin);
+				nF.setVisible(true);
+				setVisible(false); //set invisible
+				dispose();//destroy
+			}
+		});
 		btnHornitzaileak.setFont(new Font("Times New Roman", Font.BOLD, 38));
 		btnHornitzaileak.setBounds(79, 75, 261, 183);
 		contentPane.add(btnHornitzaileak);
@@ -62,7 +74,10 @@ public class Usuarios extends JFrame {
 		JButton btnBezeroak = new JButton("Bezeroak");
 		btnBezeroak.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				Interfaz_tablas.bezeroak nF = new Interfaz_tablas.bezeroak(admin);
+				nF.setVisible(true);
+				setVisible(false); //set invisible
+				dispose();//destroy
 			}
 		});
 		btnBezeroak.setFont(new Font("Times New Roman", Font.BOLD, 38));
@@ -101,6 +116,14 @@ public class Usuarios extends JFrame {
 		contentPane.add(btnExit);
 		if(admin) {
 			JButton btnLangileak = new JButton("Langileak");
+			btnLangileak.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Interfaz_tablas.Langileak nF = new Interfaz_tablas.Langileak(admin);
+					nF.setVisible(true);
+					setVisible(false); //set invisible
+					dispose();//destroy
+				}
+			});
 			btnLangileak.setFont(new Font("Times New Roman", Font.BOLD, 38));
 			btnLangileak.setBounds(299, 431, 261, 183);
 			contentPane.add(btnLangileak);
